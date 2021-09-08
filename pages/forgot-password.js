@@ -28,7 +28,7 @@ const ForgotPassword = () => {
 
   useEffect(() => {
     if (user !== null) router.push("/");
-  }, []);
+  }, [user]);
 
   //
 

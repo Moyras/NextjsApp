@@ -7,6 +7,8 @@ import {
   LoginOutlined,
   LogoutOutlined,
   UserAddOutlined,
+  CarryOutOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 
 import { Context } from "../context";
@@ -48,6 +50,29 @@ const TopNav = () => {
           <a>App</a>
         </Link>
       </Item>
+
+      {user && user.role && user.role.includes("instructor") ? (
+        <Item
+          key="/instructor/course/create"
+          onClick={(e) => setCurrent(e.key)}
+          icon={<CarryOutOutlined />}
+        >
+          <Link href="/instructor/course/create">
+            <a>Create course</a>
+          </Link>
+        </Item>
+      ) : (
+        <Item
+          key="/user/become-instructor"
+          onClick={(e) => setCurrent(e.key)}
+          icon={<TeamOutlined />}
+        >
+          <Link href="/user/become-instructor">
+            <a>Become Instructor</a>
+          </Link>
+        </Item>
+      )}
+
       {user === null && (
         <>
           <Item
@@ -59,6 +84,7 @@ const TopNav = () => {
               <a>Login</a>
             </Link>
           </Item>
+
           <Item
             key="/register"
             onClick={(e) => setCurrent(e.key)}
