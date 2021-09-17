@@ -11,6 +11,26 @@
 
 .lo-btn {
   margin-left: auto;
+  float: right;
+}
+
+.btn-instructor {
+  float: left;
+}
+
+.XButton {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  font-size: 10px;
+  position: absolute;
+  z-index: 1;
+  margin-left: 22px;
+  margin-top: -7px;
 }
 
 @media (min-width: 576px) {
