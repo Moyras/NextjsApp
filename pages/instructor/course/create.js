@@ -9,7 +9,7 @@ import router from "next/router";
 const CourseCreate = () => {
   // state
   const [values, setValues] = useState({
-    name: "",
+    title: "",
     description: "",
     price: "9.99",
     uploading: false,
@@ -94,9 +94,6 @@ const CourseCreate = () => {
           handleImageRemove={handleImageRemove}
         />
       </div>
-      <pre>{JSON.stringify(values, null, 4)}</pre>
-      <hr />
-      <pre>{JSON.stringify(image, null, 4)}</pre>
     </InstructorRoute>
   );
 };

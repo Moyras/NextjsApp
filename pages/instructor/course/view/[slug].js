@@ -135,7 +135,11 @@ const CourseView = () => {
                       title="Edit"
                       className="h4 pointer text-warning p-4"
                     >
-                      <EditOutlined />
+                      <EditOutlined
+                        onClick={() =>
+                          router.push(`/instructor/course/edit/${slug}`)
+                        }
+                      />
                     </Tooltip>
                     <Tooltip
                       title="Publish"
