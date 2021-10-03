@@ -145,7 +145,9 @@ const CourseEdit = () => {
     setValues({ ...values, lessons: allLessons });
 
     try {
-      const { data } = await axios.put(`/api/course/${slug}/${removed[0]._id}`);
+      const { data } = await axios.put(
+        `/api/course/lesson-remove/${slug}/${removed[0]._id}`
+      );
     } catch (err) {
       console.log(err);
     }

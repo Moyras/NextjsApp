@@ -3,7 +3,14 @@ import { useRouter } from "next/router";
 import InstructorRoute from "../../../../components/routes/InstructorRoute";
 import axios from "axios";
 import { Avatar, Tooltip, Button, Modal, List } from "antd";
-import { EditOutlined, CheckOutlined, UploadOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  CheckOutlined,
+  UploadOutlined,
+  QuestionOutlined,
+  CloseOutlined,
+  UserSwitchOutlined,
+} from "@ant-design/icons";
 import ReactMarkdown from "react-markdown";
 import AddLessonForm from "../../../../components/forms/AddLessonForm";
 import { toast } from "react-toastify";
@@ -21,6 +28,8 @@ const CourseView = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadButtonText, setUploadButtonText] = useState("Upload video");
   const [progress, setProgress] = useState(0);
+  // student count
+  const [students, setStudent] = useState(0);
 
   const router = useRouter();
   const { slug } = router.query;
@@ -29,9 +38,24 @@ const CourseView = () => {
     loadCourse();
   }, [slug]);
 
+  useEffect(() => {
+    course && studentCount();
+  }, [course]);
+
   const loadCourse = async () => {
     const { data } = await axios.get(`/api/course/${slug}`);
     setCourse(data);
+  };
+
+  const studentCount = async () => {
+    try {
+      const { data } = await axios.post("/api/instructor/student-count", {
+        courseId: course._id,
+      });
+      setStudent(data.length);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleAddLesson = async (e) => {
@@ -43,6 +67,7 @@ const CourseView = () => {
       );
 
       setValues({ ...values, title: "", content: "", video: {} });
+      setProgress(0);
       setVisible(false);
       setUploadButtonText("Upload video");
       setCourse(data);
@@ -109,6 +134,36 @@ const CourseView = () => {
     }
   };
 
+  const handlePublish = async (e, courseId) => {
+    try {
+      let answer = window.confirm(
+        "Once you publish your course, it will be live in ther marketplace for users to enroll"
+      );
+      if (!answer) return;
+      const { data } = await axios.put(`/api/course/publish/${courseId}`);
+      setCourse(data);
+      toast.success("Congrats! Your course is live");
+    } catch (err) {
+      toast.error("Course publish failed, Try again!");
+      console.log(err);
+    }
+  };
+
+  const handleUnpublish = async (e, courseId) => {
+    try {
+      let answer = window.confirm(
+        "Once you unpublish your course, it not will be available for users to enroll"
+      );
+      if (!answer) return;
+      const { data } = await axios.put(`/api/course/unpublish/${courseId}`);
+      setCourse(data);
+      toast.success("Your course is unpublished");
+    } catch (err) {
+      console.log(err);
+      toast.error("Course unpublish failed, Try again!");
+    }
+  };
+
   return (
     <InstructorRoute>
       <div className="container-fluid pt-3">
@@ -120,7 +175,7 @@ const CourseView = () => {
                 src={course.image ? course.image.Location : "/course.jpeg"}
               />
               <div className="px-3 ">
-                <div className="row">
+                <div className="row w-100">
                   <div className="col">
                     <h5 className="mt-2 text-primary">{course.title}</h5>
                     <p style={{ marginTop: "-10px" }}>
@@ -132,6 +187,16 @@ const CourseView = () => {
                   </div>
                   <div className="d-flex col-1">
                     <Tooltip
+                      title={`${students} enrolled`}
+                      className="h4 pointer text-info p-4 float-end"
+                    >
+                      <UserSwitchOutlined
+                        onClick={() =>
+                          router.push(`/instructor/course/edit/${slug}`)
+                        }
+                      />
+                    </Tooltip>
+                    <Tooltip
                       title="Edit"
                       className="h4 pointer text-warning p-4"
                     >
@@ -141,12 +206,38 @@ const CourseView = () => {
                         }
                       />
                     </Tooltip>
-                    <Tooltip
+                    {course.lessons && course.lessons.length < 5 ? (
+                      <Tooltip
+                        title="Min 5 lessons required to publish"
+                        className="h4 pointer text-danger py-4"
+                      >
+                        <QuestionOutlined />
+                      </Tooltip>
+                    ) : course.published ? (
+                      <Tooltip
+                        title="Unpublish"
+                        className="h4 pointer text-danger py-4"
+                      >
+                        <CloseOutlined
+                          onClick={(e) => handleUnpublish(e, course._id)}
+                        />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip
+                        title="Publish"
+                        className="h4 pointer text-succes py-4"
+                      >
+                        <CheckOutlined
+                          onClick={(e) => handlePublish(e, course._id)}
+                        />
+                      </Tooltip>
+                    )}
+                    {/* <Tooltip
                       title="Publish"
                       className="h4 pointer text-danger py-4"
                     >
-                      <CheckOutlined />
-                    </Tooltip>
+                      
+                    </Tooltip> */}
                   </div>
                 </div>
               </div>

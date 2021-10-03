@@ -23,6 +23,15 @@ const InstructorNav = () => {
           Course Create
         </a>
       </Link>
+      <Link href="/instructor/revenue">
+        <a
+          className={`nav-link mt-1 ${
+            current === "/instructor/revenue" && "active"
+          }`}
+        >
+          Revenue
+        </a>
+      </Link>
     </div>
   );
 };
