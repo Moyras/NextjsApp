@@ -25,7 +25,7 @@ const CourseCard = ({ course }) => {
  
     </Card>
   </a>
-</Link>;
+</Link>
   );
 };
 
