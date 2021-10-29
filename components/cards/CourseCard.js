@@ -8,7 +8,24 @@ const CourseCard = ({ course }) => {
   const { title, instructor, price, image, slug, paid, category } = course;
 
   return (
- <pre>{JSON.stringify(course, null, 4)}</pre>
+ <Link href={`/course/${slug}`}>
+  <a>
+    <Card
+      className="mb-4"
+      cover={
+        <img
+          src={image.Location}
+          alt={title}
+          style={{ height: "300px", objectFit: "cover" }}
+          className="p-1"
+        />
+      }
+    >
+<h2 className="font-weight-bold">{title}</h2>
+ 
+    </Card>
+  </a>
+</Link>;
   );
 };
 
