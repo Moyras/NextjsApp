@@ -1,7 +1,7 @@
 import axios from "axios";
 import CourseCard from "../components/cards/CourseCard";
 
-const Index = ({ courses }) => {
+const Index = ({ data }) => {
 
   return (
     <>
@@ -10,7 +10,7 @@ const Index = ({ courses }) => {
       </h1>
       <div className="container-fluid">
         <div className="row">
-          {courses.map((course) => (
+          {data.map((course) => (
             <div key={course._id} className="col-md-4">
               <CourseCard course={course} />
             </div>
@@ -24,7 +24,7 @@ const Index = ({ courses }) => {
 export async function getServerSideProps() {
   const { data } = await axios.get(`http://138.197.183.149/api/courses`);
   return {
-    props: { courses: data },
+    props: { data },
   };
 }
 
