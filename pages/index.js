@@ -9,7 +9,11 @@ const Index = ({ data }) => {
         Online Education Marketplace
       </h1>
       <div className="container-fluid">
-        <div className="row"><pre>{JSON.stringify(data, null,4)}</pre>
+        <div className="row"> {data.map((course) => (
+            <div key={course._id} className="col-md-4">
+              <pre>{JSON.stringify(course, null,4)}</pre>
+            </div>
+          ))}
         </div>
       </div>
     </>
