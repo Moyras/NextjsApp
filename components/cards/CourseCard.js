@@ -14,7 +14,7 @@ const CourseCard = ({ course }) => {
       className="mb-4"
       cover={
         <img
-          src={image.Location ? image.Location : "https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image.jpg"}
+          src={image.Location ? (image.Location) : ("https://martialartsplusinc.com/wp-content/uploads/2017/04/default-image.jpg")}
           alt={title}
           style={{ height: "300px", objectFit: "cover" }}
           className="p-1"
