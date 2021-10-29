@@ -10,7 +10,19 @@ const CourseCard = ({ course }) => {
   return (
 <Link href={`/course/${slug}`}>
   <a>
-   Hola
+    <Card
+      className="mb-4"
+      cover={
+        <img
+          src={image.Location}
+          alt={title}
+          style={{ height: "300px", objectFit: "cover" }}
+          className="p-1"
+        />
+      }
+    >
+Hola
+    </Card>
   </a>
 </Link>
   );
