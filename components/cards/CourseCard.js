@@ -8,34 +8,7 @@ const CourseCard = ({ course }) => {
   const { title, instructor, price, image, slug, paid, category } = course;
 
   return (
-    <Link href={`/course/${slug}`}>
-      <a>
-        <Card
-          className="mb-4"
-          cover={
-            <img
-              src={image.Location}
-              alt={title}
-              style={{ height: "300px", objectFit: "cover" }}
-              className="p-1"
-            />
-          }
-        >
-          <h2 className="font-weight-bold">{title}</h2>
-          <p>by {instructor.name}</p>
-          <Badge
-            count={category}
-            style={{ backgroundColor: "#03a9f4" }}
-            className="pb-2 mr-2"
-          />
-          <h4 className="pt-2">
-            {paid
-              ? currencyFormatter({ amount: price, currency: "usd" })
-              : "Free"}{" "}
-          </h4>
-        </Card>
-      </a>
-    </Link>
+ <pre>{JSON.stringify(course, null, 4)}</pre>
   );
 };
 
