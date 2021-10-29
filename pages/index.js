@@ -9,7 +9,7 @@ const Index = ({ data }) => {
         Online Education Marketplace
       </h1>
       <div className="container-fluid">
-        <div className="row">a
+        <div className="row"><pre>{JSON.stringify(data, null,4)}</pre>
         </div>
       </div>
     </>
