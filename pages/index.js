@@ -22,7 +22,7 @@ const Index = ({ courses }) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await axios.get(`https://http://138.197.183.149/api/courses`);
+  const { data } = await axios.get(`http://138.197.183.149/api/courses`);
   return ({
     props: { courses: data },
   });
