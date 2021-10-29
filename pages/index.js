@@ -9,12 +9,7 @@ const Index = ({ data }) => {
         Online Education Marketplace
       </h1>
       <div className="container-fluid">
-        <div className="row">
-          {data.map((course) => (
-            <div key={course._id} className="col-md-4">
-              <CourseCard course={course} />
-            </div>
-          ))}
+        <div className="row">a
         </div>
       </div>
     </>
