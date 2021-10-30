@@ -11,11 +11,11 @@ app
   .then(() => {
     const server = express();
     // apply proxy in dev mode
-    if (dev) {
+    if (true) {
       server.use(
         "/api",
         createProxyMiddleware({
-          target: "http://localhost:8000",
+          target: "http://138.197.183.149",
           changeOrigin: true,
         })
       );
