@@ -26,7 +26,7 @@ const SingleCourse = ({ course }) => {
 
   const checkEnrollment = async () => {
     try {
-      const { data } = await axios.get(`/api/check-enrollment/${course._id}`);
+      const { data } = await axios.get(`http://138.197.183.149/api/check-enrollment/${course._id}`);
       setEnrolled(data);
     } catch (err) {
       console.log(err);
@@ -44,7 +44,7 @@ const SingleCourse = ({ course }) => {
       // check if already enrolled
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
-      const { data } = await axios.post(`/api/paid-enrollment/${course._id}`);
+      const { data } = await axios.post(`http://138.197.183.149/api/paid-enrollment/${course._id}`);
       const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
       stripe.redirectToCheckout({ sessionId: data });
     } catch (err) {
@@ -64,7 +64,7 @@ const SingleCourse = ({ course }) => {
       if (enrolled.status)
         return router.push(`/user/course/${enrolled.course.slug}`);
       setLoading(true);
-      const { data } = await axios.post(`/api/free-enrollment/${course._id}`);
+      const { data } = await axios.post(`http://138.197.183.149/api/free-enrollment/${course._id}`);
       toast.success("Successful enrollment");
 
       setLoading(false);
@@ -110,7 +110,7 @@ const SingleCourse = ({ course }) => {
 };
 
 export async function getServerSideProps({ query }) {
-  const { data } = await axios.get(`${process.env.API}/course/${query.slug}`);
+  const { data } = await axios.get(`http://138.197.183.149/api/course/${query.slug}`);
   return {
     props: { course: data },
   };
